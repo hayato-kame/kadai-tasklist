@@ -1,9 +1,15 @@
 <h1>id: <%= @task.id %>のタスク詳細ページ</h1>
 
-<p><%= @task.content %></p>
 
-<%= link_to '一覧に戻る', tasks_path %>
+<p>ステータス: <%= @task.status %></p>
+
+<p>タスク: <%= @task.content %></p>
+
+
+
 <!--show から index に戻れるよう、「一覧に戻る」リンクを追加しています。-->
+<%= link_to '一覧に戻る', tasks_path %>
+
 
 <%= link_to 'このタスクを編集する', edit_task_path(@task) %>
 

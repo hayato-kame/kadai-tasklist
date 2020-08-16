@@ -1,8 +1,8 @@
 <%= form_with(model: task, local: true) do |f| %>
-    <% if message.errors.any? %>
+    <% if task.errors.any? %>
       <div id="error_explanation">
         <ul>
-          <% message.errors.full_messages.each do |msg| %>
+          <% task.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
           <% end %>
         </ul>
@@ -10,9 +10,17 @@
     <% end %>
     
     
+    
+    <%= f.label :status, 'ステータス' %>
+    
+    <%= f.text_field :status %>
+    
+    
+    
     <%= f.label :content, 'タスク' %>
     
     <%= f.text_field :content %>
+    
     
     
     <%= f.submit '投稿' %>
