@@ -1,26 +1,18 @@
 Rails.application.routes.draw do
   
-  get 'users/new'
-  get 'users/create'
-      # トップページにアクセスしたときのルーティングを
-      #  TasksControllerコントローラのindexアクションに設定する　つまり、
-      #  / （トップページ） にアクセスしたときと、 /tasks にアクセスした両方で同じルーティングが設定された
   root to: 'tasks#index'
   
+  #　ログインログアウト
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  # resources :sessions, only: [:new, :create, :destroy] としても良いですが、個別にルーティングを設定してます
   
-  # get 'tasks/:id', to: 'tasks#show'
-  # post 'tasks', to: 'tasks#create'
-  # put 'tasks/:id', to: 'tasks#update'
-  # delete 'tasks/:id', to: 'tasks#destroy'
-  
-  # get 'tasks', to: 'tasks#index'
-  
-  # get 'tasks/new', to: 'tasks#new'
-  
-  # get 'tasks/:id/edit', to: 'tasks#edit'
   
   resources :tasks   # 7つのルーティングの省略形
   
+  
+  # ユーザ登録  今回は、index show 要らない
   get 'signup', to: 'users#new'
   resources :users, only: [:new, :create]
   

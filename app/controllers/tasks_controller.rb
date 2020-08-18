@@ -8,6 +8,13 @@ class TasksController < ApplicationController
   # @task = Task.find(params[:id]) として代入されます。
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
+   before_action :require_user_logged_in, only: [:index, :show]
+  
+#   require_user_logged_in はログイン状態を確認し、
+#   ログインしていれば何もせず、
+#   ログインしていなければログインページへ強制的にリダイレクトさせます。
+#   これで、ログインしていないユーザに 
+# tasks#index とtasks#show を見られることはありません
   
   def index
     @tasks = Task.all
