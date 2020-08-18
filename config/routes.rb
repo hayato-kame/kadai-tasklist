@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   
+  get 'users/new'
+  get 'users/create'
       # トップページにアクセスしたときのルーティングを
       #  TasksControllerコントローラのindexアクションに設定する　つまり、
-      #  / （トップページ） にアクセスしたときと、 /messages にアクセスした両方で同じルーティングが設定された
+      #  / （トップページ） にアクセスしたときと、 /tasks にアクセスした両方で同じルーティングが設定された
   root to: 'tasks#index'
   
   
@@ -18,5 +20,8 @@ Rails.application.routes.draw do
   # get 'tasks/:id/edit', to: 'tasks#edit'
   
   resources :tasks   # 7つのルーティングの省略形
+  
+  get 'signup', to: 'users#new'
+  resources :users, only: [:new, :create]
   
 end
