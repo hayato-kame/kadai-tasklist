@@ -11,7 +11,9 @@ class TasksController < ApplicationController
  #  before_action :require_user_logged_in, only: [:index, :show]
  
  before_action :require_user_logged_in
-   
+ 
+ 
+ before_action :correct_user, only: [:show, :edit, :update, :destroy]  
   
    
   
@@ -98,7 +100,13 @@ class TasksController < ApplicationController
     params.require(:task).permit(:content, :status)
   end
   
-  
+  # 誰もが勝手に他者の投稿を削除などができないようにするための対処
+  def correct_user
+    @task = current_user.tasks.find_by(id: params[:id])
+    unless @task  # 見つからない　nil が入ってる
+      redirect_to root_url # トップページに戻されます。
+    end
+  end
  
   
 end

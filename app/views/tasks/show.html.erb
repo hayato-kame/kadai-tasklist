@@ -1,22 +1,23 @@
-<h1>id: <%= @task.id %>のタスク詳細ページ</h1>
 
 
-<p>ステータス: <%= @task.status %></p>
-
-<p>タスク: <%= @task.content %></p>
-
+<% if current_user == @task.user %>
+  <h1>id: <%= @task.id %>のタスク詳細ページ</h1>
+  
+  
+  <p>ステータス: <%= @task.status %></p>
+  
+  <p>タスク: <%= @task.content %></p>
+<% end %>
 
 
 <!--show から index に戻れるよう、「一覧に戻る」リンクを追加しています。-->
 <%= link_to '一覧に戻る', tasks_path %>
 
+<% if current_user == @task.user %>
+  <%= link_to 'このタスクを編集する', edit_task_path(@task) %>
+<% end %>
 
-<%= link_to 'このタスクを編集する', edit_task_path(@task) %>
-
-
-
+<% if current_user == @task.user %>
   <%= link_to 'このタスクを削除する', @task, method: :delete, data: {confirm: '本当に削除してよろしいですか？' } %> 
+<% end %>
 
-
-
-<!--削除の@task  じゃなくて　task カモ-->
