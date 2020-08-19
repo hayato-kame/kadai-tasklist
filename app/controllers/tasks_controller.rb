@@ -4,7 +4,7 @@ class TasksController < ApplicationController
  
  before_action :set_task, only: [:show, :edit, :update, :destroy]
  
- before_action :correct_user, only: [:update, :destroy]  
+ before_action :correct_user, only: [:show, :update, :destroy]  
   
   
   def index
@@ -15,9 +15,9 @@ class TasksController < ApplicationController
   end
 
   def new
-    if logged_in?
-      @task = current_user.tasks.build  # form_with用　　投稿するフォームを設置するので
-    end
+    
+      @task = current_user.tasks.build 
+    
   end
 
   def create

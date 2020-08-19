@@ -6,17 +6,17 @@
   <p>ステータス: <%= @task.status %></p>
   
   <p>タスク: <%= @task.content %></p>
-<% end %>
+
 
 
 <!--show から index に戻れるよう、「一覧に戻る」リンクを追加しています。-->
 <%= link_to '一覧に戻る', tasks_path %>
 
-<% if current_user == @task.user %>
-  <%= link_to 'このタスクを編集する', edit_task_path(@task) %>
-<% end %>
 
-<% if current_user == @task.user %>
+  <%= link_to 'このタスクを編集する', edit_task_path(@task) %>
+
+
+
   <%= link_to 'このタスクを削除する', @task, method: :delete, data: {confirm: '本当に削除してよろしいですか？' } %> 
 <% end %>
 
