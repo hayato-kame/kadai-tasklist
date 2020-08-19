@@ -9,6 +9,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
    before_action :require_user_logged_in, only: [:index, :show]
+   
+  
+   
   
 #   require_user_logged_in はログイン状態を確認し、
 #   ログインしていれば何もせず、
@@ -25,6 +28,7 @@ class TasksController < ApplicationController
 
   def show
     # @task = Task.find(params[:id])
+  
     # set_task
   end
 
@@ -73,7 +77,9 @@ class TasksController < ApplicationController
     @task.destroy
     
     flash[:success] = 'Task は正常に削除されました'
-    redirect_to tasks_url
+   redirect_to tasks_url
+  
+    
   end
   
   
@@ -89,5 +95,8 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:content, :status)
   end
+  
+  
+ 
   
 end
