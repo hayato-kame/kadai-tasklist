@@ -4,16 +4,6 @@
 
 <%= form_with(model: @user, local: true) do |f| %>
 
-  <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <ul>
-          <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-  <% end %>
-
 
   <%= render 'layouts/error_messages', model: f.object %>      
       
@@ -41,3 +31,5 @@
 <% end %>
 
  
+<!--エラーになったとき ログインページへ に戻れるようリンクを追加しています。-->
+<%= link_to 'ログインページへ', login_path %>

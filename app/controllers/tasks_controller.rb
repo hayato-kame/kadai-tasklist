@@ -1,53 +1,27 @@
 class TasksController < ApplicationController
   
-  # before_action を使用することでまとめることが可能
-  # before_action は、アクションが実行される前に、前もって実行すべきメソッドを指定できます。
-  # 今回は set_task メソッドをアクション実行前に実行されるように指定しました。
-  # また、only: [...] によって、set_task を前もって実行するアクション一覧を指定してます。
-  # このおかげで、show, edit, update, destroy が実行される前に必ず set_task を実行することになり、
-  # @task = Task.find(params[:id]) として代入されます。
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  
- #  before_action :require_user_logged_in, only: [:index, :show]
+ before_action :require_user_logged_in, only: [:index, :show]
  
- before_action :require_user_logged_in
+ before_action :set_task, only: [:show, :edit, :update, :destroy]
  
- 
- before_action :correct_user, only: [:show, :edit, :update, :destroy]  
+ before_action :correct_user, only: [:update, :destroy]  
   
-   
-  
-#   require_user_logged_in はログイン状態を確認し、
-#   ログインしていれば何もせず、
-#   ログインしていなければログインページへ強制的にリダイレクトさせます。
-#   これで、ログインしていないユーザに 
-# tasks#index とtasks#show を見られることはありません
   
   def index
-    if logged_in?
- #   @tasks = Task.all
       @tasks = current_user.tasks.order(id: :desc)
-    end
   end
 
   def show
-    # @task = Task.find(params[:id])
-  
-    # set_task
   end
 
   def new
     if logged_in?
- #   @task = Task.new
       @task = current_user.tasks.build  # form_with用　　投稿するフォームを設置するので
-    # form_with(model: @micropost) として使用します
     end
   end
 
   def create
- #   @task = Task.new(task_params)
     @task = current_user.tasks.build(task_params)#認証したログインしてるセッションスコープにあるユーザーＩＤの
-    
     if @task.save
       flash[:success] = 'Task が正常に投稿されました'
       redirect_to @task
@@ -56,16 +30,12 @@ class TasksController < ApplicationController
       render :new
     end
   end
+  
 
   def edit
-    # @task = Task.find(params[:id])
-    # set_task
   end
 
   def update
-    # @task = Task.find(params[:id])
-    # set_task
-    
     if @task.update(task_params)
       flash[:success] = 'Task は正常に更新されました'
       redirect_to @task
@@ -76,19 +46,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    # @task = Task.find(params[:id])
-    # set_task
     @task.destroy
-    
     flash[:success] = 'Task は正常に削除されました'
    redirect_to tasks_url
-  
-    
   end
   
-  
-  
-  
+
   private
   
   def set_task
@@ -100,7 +63,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:content, :status)
   end
   
-  # 誰もが勝手に他者の投稿を削除などができないようにするための対処
+  # 誰もが勝手に他者の投稿を削除/更新ができないようにするための対処
   def correct_user
     @task = current_user.tasks.find_by(id: params[:id])
     unless @task  # 見つからない　nil が入ってる
@@ -108,5 +71,4 @@ class TasksController < ApplicationController
     end
   end
  
-  
 end
