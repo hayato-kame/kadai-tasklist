@@ -17,7 +17,10 @@ class TasksController < ApplicationController
 # tasks#index とtasks#show を見られることはありません
   
   def index
-    @tasks = Task.all
+    if logged_in?
+ #   @tasks = Task.all
+      @tasks = current_user.tasks.order(id: :desc)
+    end
   end
 
   def show
@@ -26,7 +29,11 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    if logged_in?
+ #   @task = Task.new
+      @task = current_user.tasks.build  # form_with用　　投稿するフォームを設置するので
+    # form_with(model: @micropost) として使用します
+    end
   end
 
   def create

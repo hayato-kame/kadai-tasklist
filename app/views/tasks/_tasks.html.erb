@@ -1,0 +1,10 @@
+<% tasks.each do |task| %>
+
+   <p><%= link_to task.user.name, user_path(task.user) %></p>
+  
+   <p><%= task.created_at %></p>
+  <span class="text-muted">posted at <%= task.content %>  </span>
+
+<% end %>
+
+<!--これは使ってない　renderしてない-->
