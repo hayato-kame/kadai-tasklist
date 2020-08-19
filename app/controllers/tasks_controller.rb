@@ -8,7 +8,9 @@ class TasksController < ApplicationController
   # @task = Task.find(params[:id]) として代入されます。
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
-   before_action :require_user_logged_in, only: [:index, :show]
+ #  before_action :require_user_logged_in, only: [:index, :show]
+ 
+ before_action :require_user_logged_in
    
   
    
